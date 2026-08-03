@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 import { PiStarFill, PiQuotesFill } from 'react-icons/pi';
 import { testimonials } from '../data/content';
@@ -20,6 +20,11 @@ export default function Testimonials() {
 
   const pause = () => controls.stop();
 
+  useEffect(() => {
+    start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <section className="relative bg-sand/25 py-28 lg:py-36 overflow-hidden">
       <div className="container-lux mb-14">
@@ -29,15 +34,7 @@ export default function Testimonials() {
         </h2>
       </div>
 
-      <div
-        className="relative"
-        onMouseEnter={pause}
-        onMouseLeave={start}
-        ref={(el) => {
-          trackRef.current = el;
-          if (el) start();
-        }}
-      >
+      <div className="relative" onMouseEnter={pause} onMouseLeave={start} ref={trackRef}>
         <motion.div animate={controls} className="flex gap-6 w-max px-6" initial={{ x: '0%' }}>
           {loop.map((t, i) => (
             <div

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 
+
 :root {
   --ivory: #f6f3ee;
   --sand: #d8c8b4;
@@ -157,4 +158,31 @@ body {
 
 .btn-lux-light:hover {
   color: var(--ink);
+}
+
+/* faint architectural grid, like paper under a drafting lamp */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(250, 248, 245, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 248, 245, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* slow compass rotation for the drafting-circle motif */
+@keyframes compass-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.compass-rotate {
+  animation: compass-spin 48s linear infinite;
+}
+
+/* focus-pull reveal: blur resolves into clarity, echoes "espaces de lumiere" */
+.focus-reveal {
+  filter: blur(10px);
+  opacity: 0;
 }

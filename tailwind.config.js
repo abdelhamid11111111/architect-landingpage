@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  content: ['./src/app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -16,9 +16,9 @@ export default {
         ink: '#181818',
       },
       fontFamily: {
-        display: ['"Bodoni Moda"', 'serif'],
-        serif: ['"Cormorant Garamond"', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        display: ['var(--font-display)', '"Bodoni Moda"', 'serif'],
+        serif: ['var(--font-serif)', '"Cormorant Garamond"', 'serif'],
+        sans: ['var(--font-sans)', 'Inter', 'sans-serif'],
       },
       letterSpacing: {
         widest2: '0.35em',

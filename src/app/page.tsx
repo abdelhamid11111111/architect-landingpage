@@ -1,3 +1,5 @@
+'use client';
+
 import { useLenis } from './hooks/useLenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,7 +13,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-function App() {
+export default function Home() {
   useLenis();
 
   return (
@@ -33,5 +35,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
