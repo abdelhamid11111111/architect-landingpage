@@ -1,128 +1,114 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import type { FC } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects } from "../lib/data";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FiArrowUpRight } from 'react-icons/fi';
+import { projects } from '../data/content';
+import { useTextReveal } from '../hooks/useTextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Projects: FC = () => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+export default function Projects() {
+  const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
+  const stackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!wrapperRef.current || !stickyRef.current) return;
+    const stack = stackRef.current;
+    if (!stack) return;
+
+    const cards = gsap.utils.toArray<HTMLElement>('.project-card');
+    const rotations = [-4, 3, -3, 4, -2];
 
     const ctx = gsap.context(() => {
-      const cards = cardRefs.current.filter(
-        (el): el is HTMLDivElement => el !== null
-      );
-
-      // Base stacked state: each card offset slightly, like fanned drawings.
       cards.forEach((card, i) => {
-        gsap.set(card, {
-          yPercent: i * 3,
-          rotate: i % 2 === 0 ? -3 - i * 0.6 : 3 + i * 0.6,
-          scale: 1 - i * 0.03,
-          zIndex: cards.length - i,
+        if (i === 0) return;
+
+        gsap.set(card, { yPercent: 100, rotate: 0 });
+
+        gsap.to(card, {
+          yPercent: 0,
+          rotate: rotations[i % rotations.length],
+          ease: 'none',
+          scrollTrigger: {
+            trigger: stack,
+            start: `top+=${(i - 1) * window.innerHeight * 0.85} top`,
+            end: `top+=${i * window.innerHeight * 0.85} top`,
+            scrub: true,
+          },
+        });
+
+        // previous cards recede slightly as the next one arrives
+        gsap.to(cards[i - 1], {
+          scale: 0.94,
+          filter: 'brightness(0.6)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: stack,
+            start: `top+=${(i - 1) * window.innerHeight * 0.85} top`,
+            end: `top+=${i * window.innerHeight * 0.85} top`,
+            scrub: true,
+          },
         });
       });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top top",
-          end: () => `+=${cards.length * 700}`,
-          scrub: 0.6,
-          pin: stickyRef.current,
-          anticipatePin: 1,
-        },
-      });
-
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return;
-        tl.to(
-          card,
-          {
-            yPercent: -120,
-            rotate: i % 2 === 0 ? -18 : 18,
-            x: i % 2 === 0 ? -160 : 160,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.inOut",
-          },
-          i
-        ).to(
-          cards[i + 1],
-          {
-            scale: 1,
-            rotate: 0,
-            yPercent: 0,
-            duration: 1,
-            ease: "power2.inOut",
-          },
-          i
-        );
-      });
-    }, wrapperRef);
+    }, stack);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="projets" className="relative bg-stone-light">
-      <div className="max-w-8xl mx-auto px-6 sm:px-10 pt-28 pb-10">
-        <span className="font-mono text-xs tracking-widest2 uppercase text-timber">
-          Réalisations
-        </span>
-        <h2 className="font-display text-4xl sm:text-5xl text-ink mt-4 max-w-xl">
-          Un portfolio pensé comme une collection.
-        </h2>
+    <section id="projects" className="relative bg-charcoal py-28 lg:py-36">
+      <div className="container-lux mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div>
+            <p className="eyebrow mb-5">Réalisations</p>
+            <h2
+              ref={titleRef}
+              className="font-display text-offwhite text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
+            >
+              Un récit architectural, projet après projet
+            </h2>
+          </div>
+          <p className="font-sans text-offwhite/50 max-w-sm leading-relaxed">
+            Faites défiler pour parcourir une sélection de nos réalisations les plus
+            singulières, en France et à l'international.
+          </p>
+        </div>
       </div>
 
-      <div ref={wrapperRef} className="relative">
-        <div
-          ref={stickyRef}
-          className="h-screen w-full flex items-center justify-center overflow-hidden px-6"
-        >
-          <div className="relative w-full max-w-2xl aspect-[4/5]">
-            {projects.map((project, i) => (
-              <div
-                key={project.id}
-                ref={(el) => {
-                  cardRefs.current[i] = el;
-                }}
-                className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl border border-ink/10 bg-ink"
-              >
-                <img
-                  src={project.image}
-                  alt={`${project.name}, ${project.location}`}
-                  className="h-full w-full object-cover opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 flex items-end justify-between">
-                  <div>
-                    <p className="font-mono text-xs text-alabaster/60 mb-2">
-                      {project.category} — {project.year}
-                    </p>
-                    <h3 className="font-display text-3xl text-alabaster">
-                      {project.name}
-                    </h3>
-                  </div>
-                  <span className="font-mono text-xs text-alabaster/60 whitespace-nowrap">
-                    {project.location}
-                  </span>
+      <div
+        ref={stackRef}
+        className="sticky top-0 h-screen w-full overflow-hidden"
+        style={{ marginBottom: `${(projects.length - 1) * 85}vh` }}
+      >
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="project-card absolute inset-0 flex items-center justify-center px-6"
+            style={{ willChange: 'transform' }}
+          >
+            <div className="relative w-full max-w-5xl aspect-[16/10] overflow-hidden shadow-2xl">
+              <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+
+              <div className="absolute top-6 right-6 glass w-12 h-12 rounded-full flex items-center justify-center">
+                <FiArrowUpRight className="text-offwhite text-lg" />
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex items-end justify-between gap-6">
+                <div>
+                  <p className="eyebrow mb-3 text-sand">{project.category}</p>
+                  <h3 className="font-display text-offwhite text-3xl sm:text-4xl lg:text-5xl">
+                    {project.title}
+                  </h3>
+                </div>
+                <div className="text-right hidden sm:block">
+                  <p className="font-sans text-offwhite/70 text-sm">{project.location}</p>
+                  <p className="font-sans text-offwhite/40 text-sm">{project.year}</p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

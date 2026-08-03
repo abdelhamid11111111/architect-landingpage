@@ -1,89 +1,89 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import type { FC } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { services } from "../lib/data";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PiCompassToolLight, PiArmchairLight, PiHammerLight, PiHardHatLight } from 'react-icons/pi';
+import { services } from '../data/content';
+import { useTextReveal } from '../hooks/useTextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Services: FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+const icons = {
+  concept: PiCompassToolLight,
+  interior: PiArmchairLight,
+  renovation: PiHammerLight,
+  supervision: PiHardHatLight,
+};
+
+export default function Services() {
+  const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const grid = gridRef.current;
+    if (!grid) return;
 
-    const ctx = gsap.context(() => {
-      const cards = cardRefs.current.filter(
-        (el): el is HTMLDivElement => el !== null
-      );
+    const cards = gsap.utils.toArray<HTMLElement>('.service-card');
 
-      gsap.set(cards, { opacity: 0, x: 120 });
+    gsap.set(cards, { opacity: 0, xPercent: 12, filter: 'blur(6px)' });
 
-      gsap.to(cards, {
-        opacity: 1,
-        x: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    gsap.to(cards, {
+      opacity: 1,
+      xPercent: 0,
+      filter: 'blur(0px)',
+      duration: 1,
+      ease: 'power3.out',
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: grid,
+        start: 'top 80%',
+      },
+    });
   }, []);
 
   return (
-    <section
-      id="services"
-      ref={sectionRef}
-      className="relative bg-alabaster py-28 sm:py-36 px-6 sm:px-10"
-    >
-      <div className="max-w-8xl mx-auto">
-        <div className="flex items-end justify-between mb-14 gap-6 flex-wrap">
-          <h2 className="font-display text-4xl sm:text-5xl text-ink max-w-xl">
-            Quatre disciplines,
-            <br />
-            une seule exigence.
-          </h2>
-          <p className="max-w-xs text-sm text-ink/60 leading-relaxed">
-            Chaque projet appelle un savoir-faire différent. Nous les
-            réunissons sous un même regard.
+    <section id="services" className="relative bg-offwhite py-28 lg:py-36">
+      <div className="container-lux">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
+          <div>
+            <p className="eyebrow mb-5">Nos expertises</p>
+            <h2 ref={titleRef} className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl">
+              Quatre disciplines, une seule exigence
+            </h2>
+          </div>
+          <p className="font-sans text-ink/55 max-w-sm leading-relaxed">
+            De la conception à la livraison, chaque savoir-faire de l'atelier sert une même
+            ambition&nbsp;: des lieux justes, durables et habités avec évidence.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {services.map((service, i) => (
-            <div
-              key={service.id}
-              ref={(el) => {
-                cardRefs.current[i] = el;
-              }}
-              className="group relative flex flex-col justify-between min-h-[22rem] rounded-2xl border border-ink/10 bg-stone-light/60 p-7 hover:bg-ink hover:border-ink transition-colors duration-500"
-            >
-              <span className="font-mono text-xs text-timber group-hover:text-timber-light">
-                {service.index}
-              </span>
-              <div>
-                <h3 className="font-display text-xl text-ink group-hover:text-alabaster transition-colors duration-500 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-ink/65 group-hover:text-alabaster/70 transition-colors duration-500">
-                  {service.description}
-                </p>
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
+          {services.map((service) => {
+            const Icon = icons[service.icon];
+            return (
+              <div
+                key={service.id}
+                className="service-card group relative bg-offwhite p-8 lg:p-9 flex flex-col justify-between min-h-[340px] transition-colors duration-500 hover:bg-ink"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="font-display text-sm text-bronze">{service.number}</span>
+                  <Icon className="text-3xl text-ink/70 group-hover:text-bronze transition-colors duration-500" />
+                </div>
+
+                <div>
+                  <h3 className="font-serif text-2xl mb-3 text-ink group-hover:text-offwhite transition-colors duration-500">
+                    {service.title}
+                  </h3>
+                  <p className="font-sans text-sm leading-relaxed text-ink/55 group-hover:text-offwhite/60 transition-colors duration-500">
+                    {service.description}
+                  </p>
+                </div>
+
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-bronze transition-all duration-500 group-hover:w-full" />
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
-};
-
-export default Services;
+}

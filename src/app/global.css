@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+
+:root {
+  --ivory: #f6f3ee;
+  --sand: #d8c8b4;
+  --bronze: #a9825a;
+  --charcoal: #1b1b1b;
+  --offwhite: #faf8f5;
+  --ink: #181818;
+  --glass: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--offwhite);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--bronze);
+  color: var(--offwhite);
+}
+
+/* thin luxury scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bronze);
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* split-type line masking for reveal animations */
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.reveal-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Fine architectural hairlines */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(24, 24, 24, 0.18), transparent);
+}
+
+.hairline-bronze {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bronze), transparent);
+}
+
+/* Glass panel */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* grain texture overlay for cinematic depth */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.container-lux {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: clamp(1.5rem, 5vw, 6rem);
+  padding-right: clamp(1.5rem, 5vw, 6rem);
+}
+
+.btn-lux {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1.1rem 2.2rem;
+  border: 1px solid var(--ink);
+  overflow: hidden;
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-lux::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-lux:hover {
+  color: var(--offwhite);
+}
+
+.btn-lux:hover::before {
+  transform: translateY(0);
+}
+
+.btn-lux-light {
+  border-color: rgba(250, 248, 245, 0.4);
+  color: var(--offwhite);
+}
+
+.btn-lux-light::before {
+  background: var(--offwhite);
+}
+
+.btn-lux-light:hover {
+  color: var(--ink);
+}

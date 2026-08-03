@@ -1,103 +1,108 @@
-"use client";
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { navLinks } from '../data/content';
 
-import { useEffect, useState } from "react";
-import type { FC } from "react";
-import { motion } from "framer-motion";
-import { navLinks } from "../lib/data";
-
-const Navbar: FC = () => {
-  const [scrolled, setScrolled] = useState<boolean>(false);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = (): void => {
-      setScrolled(window.scrollY > 40);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pt-4"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-lux ${
+        scrolled ? 'glass py-4 shadow-[0_1px_0_rgba(24,24,24,0.06)]' : 'py-7 bg-transparent'
+      }`}
     >
-      <nav
-        className={`w-full max-w-8xl flex items-center justify-between rounded-full transition-all duration-500 ${
-          scrolled
-            ? "bg-alabaster/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(33,31,27,0.08)] px-6 py-3"
-            : "bg-transparent px-2 py-4"
-        }`}
-      >
-        <a
-          href="#top"
-          className="font-display text-xl tracking-[0.15em] text-ink"
-          aria-label="LITHOS Architectes, retour en haut de page"
-        >
-          LITHOS
+      <nav className="container-lux flex items-center justify-between">
+        <a href="#hero" className="font-display text-xl tracking-wide text-ink">
+          Atelier <span className="italic text-bronze">Verrier</span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-9">
+        <ul className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li
+              key={link.href}
+              className="relative"
+              onMouseEnter={() => setHovered(link.href)}
+              onMouseLeave={() => setHovered(null)}
+            >
               <a
                 href={link.href}
-                className="blueprint-line text-sm text-ink/80 hover:text-ink transition-colors"
+                className="font-sans text-[0.72rem] tracking-[0.2em] uppercase text-ink/80 hover:text-ink transition-colors duration-300"
               >
                 {link.label}
               </a>
+              <AnimatePresence>
+                {hovered === link.href && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1.5 left-0 right-0 h-[1px] bg-bronze"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    exit={{ scaleX: 0 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                )}
+              </AnimatePresence>
             </li>
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center rounded-full border border-ink/15 px-5 py-2 text-sm text-ink hover:bg-ink hover:text-alabaster transition-colors duration-300"
-        >
+        <a href="#contact" className="hidden md:inline-flex btn-lux text-ink">
           Prendre rendez-vous
         </a>
 
         <button
-          type="button"
-          className="md:hidden text-ink text-sm tracking-widest"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
+          className="md:hidden flex flex-col gap-1.5 w-8"
+          onClick={() => setOpen((o) => !o)}
+          aria-label="Ouvrir le menu"
         >
-          {menuOpen ? "FERMER" : "MENU"}
+          <motion.span
+            animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
+            className="h-[1px] w-full bg-ink origin-center"
+          />
+          <motion.span
+            animate={{ opacity: open ? 0 : 1 }}
+            className="h-[1px] w-full bg-ink"
+          />
+          <motion.span
+            animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
+            className="h-[1px] w-full bg-ink origin-center"
+          />
         </button>
       </nav>
 
-      {menuOpen && (
-        <motion.div
-          id="mobile-menu"
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden absolute top-20 left-4 right-4 rounded-3xl bg-alabaster shadow-xl p-6 flex flex-col gap-4"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="text-ink text-base"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            className="mt-2 inline-flex items-center justify-center rounded-full border border-ink/15 px-5 py-2 text-sm text-ink"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden overflow-hidden glass"
           >
-            Prendre rendez-vous
-          </a>
-        </motion.div>
-      )}
-    </motion.header>
+            <ul className="container-lux flex flex-col gap-6 py-8">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="font-serif text-2xl text-ink"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
-};
-
-export default Navbar;
+}

@@ -1,98 +1,72 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import type { FC } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { processSteps } from "../lib/data";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { processSteps } from '../data/content';
+import { useTextReveal } from '../hooks/useTextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Process: FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
+export default function Process() {
+  const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const list = listRef.current;
+    if (!list) return;
 
     const ctx = gsap.context(() => {
-      rowRefs.current.forEach((row) => {
-        if (!row) return;
-        const title = row.querySelector(".process-title");
-        const desc = row.querySelector(".process-desc");
-        const index = row.querySelector(".process-index");
+      gsap.utils.toArray<HTMLElement>('.process-row').forEach((row) => {
+        const title = row.querySelector('.process-title');
+        const desc = row.querySelector('.process-desc');
+        const index = row.querySelector('.process-index');
+        const line = row.querySelector('.process-line');
+
+        gsap.set([title, desc, index], { opacity: 0, y: 24 });
+        gsap.set(line, { scaleX: 0 });
 
         const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: row,
-            start: "top 75%",
-            toggleActions: "play none none reverse",
-          },
+          scrollTrigger: { trigger: row, start: 'top 78%' },
         });
 
-        tl.fromTo(
-          index,
-          { opacity: 0, x: -12 },
-          { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }
-        )
-          .fromTo(
-            title,
-            { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
-            "-=0.3"
-          )
-          .fromTo(
-            desc,
-            { opacity: 0, y: 14 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-            "-=0.4"
-          );
+        tl.to(index, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
+          .to(title, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+          .to(desc, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
+          .to(line, { scaleX: 1, duration: 0.9, ease: 'power2.inOut' }, '-=0.6');
       });
-    }, sectionRef);
+    }, list);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      id="process"
-      ref={sectionRef}
-      className="relative bg-alabaster py-28 sm:py-36 px-6 sm:px-10"
-    >
-      <div className="max-w-8xl mx-auto">
-        <span className="font-mono text-xs tracking-widest2 uppercase text-timber">
-          Méthode
-        </span>
-        <h2 className="font-display text-4xl sm:text-5xl text-ink mt-4 mb-16 max-w-xl">
-          Quatre temps, un seul fil conducteur.
+    <section id="process" className="relative bg-ink py-28 lg:py-36">
+      <div className="container-lux">
+        <p className="eyebrow mb-5">Notre process</p>
+        <h2
+          ref={titleRef}
+          className="font-display text-offwhite text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-20"
+        >
+          Une méthode éprouvée, du croquis au chantier
         </h2>
 
-        <div className="flex flex-col">
-          {processSteps.map((step, i) => (
-            <div
-              key={step.index}
-              ref={(el) => {
-                rowRefs.current[i] = el;
-              }}
-              className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 items-baseline border-t border-ink/10 py-10"
-            >
-              <span className="process-index sm:col-span-1 font-mono text-sm text-timber">
+        <div ref={listRef}>
+          {processSteps.map((step) => (
+            <div key={step.id} className="process-row group relative py-10 grid md:grid-cols-12 gap-6 items-start">
+              <span className="process-index font-display text-bronze text-lg md:col-span-1">
                 {step.index}
               </span>
-              <div className="sm:col-span-4 overflow-hidden">
-                <h3 className="process-title font-display text-3xl sm:text-4xl text-ink">
-                  {step.title}
-                </h3>
-              </div>
-              <p className="process-desc sm:col-span-7 text-ink/65 leading-relaxed max-w-xl">
+              <h3 className="process-title font-serif text-offwhite text-3xl md:text-4xl md:col-span-4">
+                {step.title}
+              </h3>
+              <p className="process-desc font-sans text-offwhite/50 leading-relaxed md:col-span-6 md:col-start-7">
                 {step.description}
               </p>
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-offwhite/15" />
+              <span className="process-line absolute bottom-0 left-0 h-px w-full bg-bronze origin-left" />
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default Process;
+}

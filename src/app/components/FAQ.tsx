@@ -1,107 +1,55 @@
-"use client";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PiPlusLight } from 'react-icons/pi';
+import { faqItems } from '../data/content';
+import { useTextReveal } from '../hooks/useTextReveal';
 
-import { useEffect, useRef, useState } from "react";
-import type { FC } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Plus } from "lucide-react";
-import { faqItems } from "../lib/data";
-
-gsap.registerPlugin(ScrollTrigger);
-
-const FAQ: FC = () => {
+export default function FAQ() {
+  const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
   const [openId, setOpenId] = useState<string | null>(faqItems[0]?.id ?? null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const items = itemRefs.current.filter(
-        (el): el is HTMLDivElement => el !== null
-      );
-
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const toggle = (id: string): void => {
-    setOpenId((current) => (current === id ? null : id));
-  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-stone-light py-28 sm:py-36 px-6 sm:px-10"
-    >
-      <div className="max-w-4xl mx-auto">
-        <span className="font-mono text-xs tracking-widest2 uppercase text-timber">
-          Questions
-        </span>
-        <h2 className="font-display text-4xl sm:text-5xl text-ink mt-4 mb-14">
-          Ce que l&apos;on nous demande souvent.
-        </h2>
+    <section className="relative bg-offwhite py-28 lg:py-36">
+      <div className="container-lux grid lg:grid-cols-12 gap-12">
+        <div className="lg:col-span-4">
+          <p className="eyebrow mb-5">Questions fréquentes</p>
+          <h2 ref={titleRef} className="font-display text-4xl sm:text-5xl leading-[1.05]">
+            Tout ce qu'il faut savoir avant de commencer
+          </h2>
+        </div>
 
-        <div className="flex flex-col">
-          {faqItems.map((item, i) => {
+        <div className="lg:col-span-8">
+          {faqItems.map((item) => {
             const isOpen = openId === item.id;
             return (
-              <div
-                key={item.id}
-                ref={(el) => {
-                  itemRefs.current[i] = el;
-                }}
-                className="border-t border-ink/10 last:border-b"
-              >
+              <div key={item.id} className="border-b border-ink/10">
                 <button
-                  type="button"
-                  onClick={() => toggle(item.id)}
-                  aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-6 py-6 text-left"
+                  onClick={() => setOpenId(isOpen ? null : item.id)}
+                  className="w-full flex items-center justify-between gap-6 py-7 text-left group"
                 >
-                  <span className="font-display text-xl sm:text-2xl text-ink">
+                  <span className="font-serif text-xl sm:text-2xl text-ink group-hover:text-bronze transition-colors duration-300">
                     {item.question}
                   </span>
                   <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="shrink-0 text-timber"
+                    animate={{ rotate: isOpen ? 135 : 0 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="shrink-0 w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center"
                   >
-                    <Plus size={22} strokeWidth={1.5} />
+                    <PiPlusLight className="text-lg text-ink" />
                   </motion.span>
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      key="content"
+                      initial={{ height: 0, opacity: 0, filter: 'blur(6px)' }}
+                      animate={{ height: 'auto', opacity: 1, filter: 'blur(0px)' }}
+                      exit={{ height: 0, opacity: 0, filter: 'blur(6px)' }}
+                      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-7 pr-10 text-ink/65 leading-relaxed max-w-2xl">
-                        {item.answer}
-                      </p>
+                      <p className="font-sans text-ink/55 leading-relaxed pb-8 max-w-xl">{item.answer}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -112,6 +60,4 @@ const FAQ: FC = () => {
       </div>
     </section>
   );
-};
-
-export default FAQ;
+}

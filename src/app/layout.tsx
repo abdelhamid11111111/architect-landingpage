@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+// import { anton, jetbrainsMono } from "./font/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lithos Architectes — Construire l'exception, penser l'éternité",
-  description:
-    "Atelier d'architecture parisien spécialisé dans les résidences privées, l'architecture d'intérieur et la rénovation patrimoniale d'exception.",
+  title: "Forge",
+  description: "Salle de sport — Paris 11e",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" >
       <body>{children}</body>
     </html>
   );

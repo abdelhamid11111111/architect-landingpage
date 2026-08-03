@@ -1,37 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Atelier Verrier — Site vitrine d'architecture
 
-## Getting Started
+Landing page premium (style Awwwards) pour un cabinet d'architecture fictif, en français,
+construite en React + TypeScript.
 
-First, run the development server:
+## Stack
+
+- React 18 + TypeScript
+- Tailwind CSS (design tokens personnalisés : ivoire, sable, bronze, charbon)
+- GSAP + ScrollTrigger (reveals, parallax, stacking de cartes)
+- Framer Motion (micro-interactions, accordéon, navbar, carrousel)
+- Lenis (scroll fluide, synchronisé avec GSAP)
+- SplitType (animations de texte par ligne)
+- React Icons (Phosphor)
+
+## Démarrage
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev       # serveur de développement (http://localhost:5173)
+npm run build     # build de production dans /dist
+npm run preview   # prévisualiser le build de production
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  components/     # Navbar, Hero, Services, ParallaxTransition, Projects,
+                   # WhyChooseUs, Process, Testimonials, FAQ, Contact, Footer
+  hooks/          # useLenis, useTextReveal (SplitType + GSAP), useCounter
+  data/           # copy en français + données des sections (types stricts)
+  types/          # interfaces TypeScript partagées
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Notes de design
 
-## Learn More
+- Palette : Ivoire `#F6F3EE`, Sable `#D8C8B4`, Bronze `#A9825A`, Charbon `#1B1B1B`,
+  Blanc cassé `#FAF8F5`, Noir profond `#181818`.
+- Typographies : Bodoni Moda (titres), Cormorant Garamond (accents éditoriaux),
+  Inter (texte courant, UI).
+- Le mot-clé du hero ("lumière") utilise un effet de révélation en volet bronze
+  (« DIA reveal ») avant l'apparition du texte.
+- Les images sont des placeholders (picsum.photos) — à remplacer par les visuels
+  réels du cabinet avant mise en production.
+- Toutes les animations respectent `prefers-reduced-motion`.
 
-To learn more about Next.js, take a look at the following resources:
+## À remplacer avant mise en production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# architect-landingpage
+- Images (`src/data/content.ts`) par les photographies réelles des projets.
+- Coordonnées de contact et lien Google Maps.
+- Liens des réseaux sociaux dans le footer.

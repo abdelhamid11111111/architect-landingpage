@@ -1,31 +1,26 @@
-import type { FC } from "react";
-import { navLinks } from "../lib/data";
+import { PiInstagramLogoLight, PiLinkedinLogoLight, PiPinterestLogoLight } from 'react-icons/pi';
+import { navLinks } from '../data/content';
 
-const Footer: FC = () => {
-  const year = new Date().getFullYear();
-
+export default function Footer() {
   return (
-    <footer className="relative bg-ink text-alabaster px-6 sm:px-10 pt-20 pb-8">
-      <div className="max-w-8xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16 border-b border-alabaster/10">
-          <div className="md:col-span-2">
-            <span className="font-display text-2xl tracking-[0.15em]">
-              LITHOS
-            </span>
-            <p className="mt-5 text-sm text-alabaster/55 max-w-xs leading-relaxed">
-              Atelier d'architecture basé à Paris, dédié aux résidences,
-              intérieurs et lieux culturels d'exception.
+    <footer className="relative bg-ink pt-20 pb-8">
+      <div className="container-lux">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div>
+            <p className="font-display text-2xl text-offwhite mb-4">
+              Atelier <span className="italic text-bronze">Verrier</span>
+            </p>
+            <p className="font-sans text-sm text-offwhite/40 leading-relaxed max-w-[220px]">
+              Cabinet d'architecture et de design d'intérieur basé à Paris, depuis 2006.
             </p>
           </div>
 
           <div>
-            <p className="font-mono text-xs tracking-widest2 uppercase text-alabaster/40 mb-5">
-              Navigation
-            </p>
-            <ul className="space-y-3 text-sm text-alabaster/70">
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-offwhite/40 mb-5">Navigation</p>
+            <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-alabaster transition-colors">
+                  <a href={link.href} className="font-sans text-sm text-offwhite/70 hover:text-bronze transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -34,43 +29,37 @@ const Footer: FC = () => {
           </div>
 
           <div>
-            <p className="font-mono text-xs tracking-widest2 uppercase text-alabaster/40 mb-5">
-              Suivez-nous
-            </p>
-            <ul className="space-y-3 text-sm text-alabaster/70">
-              <li>
-                <a href="https://instagram.com" className="hover:text-alabaster transition-colors">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com" className="hover:text-alabaster transition-colors">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="https://pinterest.com" className="hover:text-alabaster transition-colors">
-                  Pinterest
-                </a>
-              </li>
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-offwhite/40 mb-5">Contact</p>
+            <ul className="flex flex-col gap-3 font-sans text-sm text-offwhite/70">
+              <li>14 rue des Beaux-Arts, 75006 Paris</li>
+              <li>+33 1 42 86 07 15</li>
+              <li>contact@atelier-verrier.fr</li>
             </ul>
+          </div>
+
+          <div>
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-offwhite/40 mb-5">Suivez-nous</p>
+            <div className="flex gap-4">
+              <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full border border-offwhite/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors text-offwhite/70">
+                <PiInstagramLogoLight className="text-lg" />
+              </a>
+              <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full border border-offwhite/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors text-offwhite/70">
+                <PiLinkedinLogoLight className="text-lg" />
+              </a>
+              <a href="#" aria-label="Pinterest" className="w-10 h-10 rounded-full border border-offwhite/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors text-offwhite/70">
+                <PiPinterestLogoLight className="text-lg" />
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-alabaster/40">
-          <p>© {year} Lithos Architectes. Tous droits réservés.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-alabaster/70 transition-colors">
-              Mentions légales
-            </a>
-            <a href="#" className="hover:text-alabaster/70 transition-colors">
-              Politique de confidentialité
-            </a>
-          </div>
+        <div className="hairline mb-8" style={{ background: 'rgba(250,248,245,0.12)' }} />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="font-sans text-xs text-offwhite/35">© 2026 Atelier Verrier. Tous droits réservés.</p>
+          <p className="font-sans text-xs text-offwhite/35">Mentions légales — Politique de confidentialité</p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

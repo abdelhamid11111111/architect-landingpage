@@ -1,91 +1,71 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import type { FC } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ParallaxTransitionProps {
-  image: string;
-  alt: string;
-  eyebrow: string;
-  quote: string;
-}
-
-const ParallaxTransition: FC<ParallaxTransitionProps> = ({
-  image,
-  alt,
-  eyebrow,
-  quote,
-}) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
+export default function ParallaxTransition() {
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (!sectionRef.current || !imageRef.current) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
     const ctx = gsap.context(() => {
+      gsap.to('.px-layer-back', {
+        yPercent: -18,
+        scale: 1.08,
+        ease: 'none',
+        scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+      gsap.to('.px-layer-mid', {
+        yPercent: -34,
+        ease: 'none',
+        scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+      gsap.to('.px-layer-front', {
+        yPercent: -55,
+        ease: 'none',
+        scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+      });
       gsap.fromTo(
-        imageRef.current,
-        { yPercent: -12 },
-        {
-          yPercent: 12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
-
-      gsap.fromTo(
-        textRef.current,
-        { opacity: 0, y: 40 },
+        '.px-text',
+        { opacity: 0, scale: 0.92 },
         {
           opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            toggleActions: "play none none reverse",
-          },
+          scale: 1,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: section, start: 'top 70%', end: 'center center', scrub: true },
         }
       );
-    }, sectionRef);
+    }, section);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-[70vh] w-full overflow-hidden bg-ink"
-    >
-      <div ref={imageRef} className="absolute inset-0 -top-[12%] h-[124%]">
-        <img src={image} alt={alt} className="h-full w-full object-cover opacity-60" />
+    <section ref={sectionRef} className="relative h-[130vh] overflow-hidden bg-charcoal">
+      <div className="px-layer-back absolute inset-0">
+        <img
+          src="https://picsum.photos/seed/parallax-back/1800/1400"
+          alt=""
+          className="w-full h-full object-cover opacity-70"
+        />
       </div>
-      <div className="absolute inset-0 bg-ink/40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/40 to-charcoal/80" />
 
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-        <span className="font-mono text-xs tracking-widest2 uppercase text-alabaster/60 mb-5">
-          {eyebrow}
-        </span>
-        <p
-          ref={textRef}
-          className="font-display text-2xl sm:text-4xl text-alabaster max-w-3xl leading-snug"
-        >
-          {quote}
+      <div className="px-layer-mid absolute top-[20%] left-[8%] w-[45%] max-w-md aspect-[4/5]">
+        <div className="w-full h-full border border-sand/25" />
+      </div>
+      <div className="px-layer-mid absolute bottom-[14%] right-[10%] w-[30%] max-w-xs aspect-square">
+        <div className="w-full h-full border border-bronze/40 rotate-6" />
+      </div>
+
+      <div className="px-layer-front absolute inset-0 flex items-center justify-center px-6">
+        <p className="px-text font-display italic text-offwhite text-center text-[9vw] sm:text-[6vw] lg:text-[4.2vw] leading-tight max-w-4xl">
+          La lumière révèle la forme, la forme révèle l'usage.
         </p>
       </div>
     </section>
   );
-};
-
-export default ParallaxTransition;
+}
