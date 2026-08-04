@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { bodoniModa, cormorant, inter } from "./fonts";
+import { marcellus, cormorant, inter } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${bodoniModa.variable} ${cormorant.variable} ${inter.variable}`}
+      className={`${marcellus.variable} ${cormorant.variable} ${inter.variable}`}
     >
       <body>{children}</body>
     </html>

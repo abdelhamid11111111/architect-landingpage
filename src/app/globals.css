@@ -10,7 +10,7 @@
   --color-offwhite: #faf8f5;
   --color-ink: #181818;
 
-  --font-display: var(--font-display-nf), "Bodoni Moda", serif;
+  --font-display: var(--font-display-nf), "Marcellus", serif;
   --font-serif: var(--font-serif-nf), "Cormorant Garamond", serif;
   --font-sans: var(--font-sans-nf), Inter, sans-serif;
 
@@ -68,10 +68,16 @@ body {
   }
 }
 
-/* split-type line masking for reveal animations */
+/* split-type line masking for reveal animations.
+   padding-bottom/negative margin-bottom give descenders (g, y, p, q, j) room
+   inside the overflow:hidden mask box without adding visible gap between
+   lines - without it, tight leading clips them against the display font's
+   descender depth. */
 .split-line {
   overflow: hidden;
   display: block;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
 
 .reveal-word {

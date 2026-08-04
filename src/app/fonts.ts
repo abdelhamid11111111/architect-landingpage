@@ -1,12 +1,15 @@
-import { Bodoni_Moda, Cormorant_Garamond, Inter } from 'next/font/google';
+import { Marcellus, Cormorant_Garamond, Inter } from 'next/font/google';
 
 // Note: variable names are suffixed "-nf" to avoid colliding with
 // Tailwind v4's own default theme tokens (--font-sans, --font-serif),
 // which are referenced separately in the @theme block in globals.css.
-export const bodoniModa = Bodoni_Moda({
+// Marcellus only ships a single static weight/style (400, normal) - no bold,
+// no italic, no variable axes. Any `italic` usage on font-display text will
+// fall back to the browser's faux-slant synthesis.
+export const marcellus = Marcellus({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['400'],
+  style: ['normal'],
   variable: '--font-display-nf',
   display: 'swap',
 });
