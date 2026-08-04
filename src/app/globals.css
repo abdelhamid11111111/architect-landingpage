@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ivory: #f6f3ee;
+  --color-sand: #d8c8b4;
+  --color-bronze: #a9825a;
+  --color-bronze-light: #c4a277;
+  --color-bronze-dark: #8a6a47;
+  --color-charcoal: #1b1b1b;
+  --color-offwhite: #faf8f5;
+  --color-ink: #181818;
 
+  --font-display: var(--font-display-nf), "Bodoni Moda", serif;
+  --font-serif: var(--font-serif-nf), "Cormorant Garamond", serif;
+  --font-sans: var(--font-sans-nf), Inter, sans-serif;
+
+  --tracking-widest2: 0.35em;
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 :root {
   --ivory: #f6f3ee;
@@ -10,179 +26,4 @@
   --offwhite: #faf8f5;
   --ink: #181818;
   --glass: rgba(255, 255, 255, 0.08);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  background: var(--offwhite);
-}
-
-body {
-  overflow-x: hidden;
-}
-
-::selection {
-  background: var(--bronze);
-  color: var(--offwhite);
-}
-
-/* thin luxury scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--bronze);
-  border-radius: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* split-type line masking for reveal animations */
-.split-line {
-  overflow: hidden;
-  display: block;
-}
-
-.reveal-word {
-  display: inline-block;
-  will-change: transform;
-}
-
-.reveal-char {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-/* Fine architectural hairlines */
-.hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(24, 24, 24, 0.18), transparent);
-}
-
-.hairline-bronze {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--bronze), transparent);
-}
-
-/* Glass panel */
-.glass {
-  background: var(--glass);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* grain texture overlay for cinematic depth */
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.eyebrow {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--bronze);
-}
-
-.container-lux {
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding-left: clamp(1.5rem, 5vw, 6rem);
-  padding-right: clamp(1.5rem, 5vw, 6rem);
-}
-
-.btn-lux {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 1.1rem 2.2rem;
-  border: 1px solid var(--ink);
-  overflow: hidden;
-  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-lux::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--ink);
-  transform: translateY(101%);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-}
-
-.btn-lux:hover {
-  color: var(--offwhite);
-}
-
-.btn-lux:hover::before {
-  transform: translateY(0);
-}
-
-.btn-lux-light {
-  border-color: rgba(250, 248, 245, 0.4);
-  color: var(--offwhite);
-}
-
-.btn-lux-light::before {
-  background: var(--offwhite);
-}
-
-.btn-lux-light:hover {
-  color: var(--ink);
-}
-
-/* faint architectural grid, like paper under a drafting lamp */
-.blueprint-grid {
-  background-image:
-    linear-gradient(rgba(250, 248, 245, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(250, 248, 245, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-/* slow compass rotation for the drafting-circle motif */
-@keyframes compass-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.compass-rotate {
-  animation: compass-spin 48s linear infinite;
-}
-
-/* focus-pull reveal: blur resolves into clarity, echoes "espaces de lumiere" */
-.focus-reveal {
-  filter: blur(10px);
-  opacity: 0;
 }
