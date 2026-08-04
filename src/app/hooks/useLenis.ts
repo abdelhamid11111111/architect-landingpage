@@ -25,11 +25,31 @@ export function useLenis() {
     });
     gsap.ticker.lagSmoothing(0);
 
+    // Custom fonts (Bodoni Moda / Cormorant Garamond) load with display:'swap',
+    // which reflows the page once they swap in. That invalidates any
+    // ScrollTrigger start/end positions cached before the swap happened —
+    // refresh once fonts are actually ready so pinned/scrubbed sections
+    // (like Services) stay aligned with real scroll position.
+    if (typeof document !== 'undefined' && document.fonts) {
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+      });
+    }
+
+    // belt-and-suspenders: also refresh after full page load (images etc.
+    // can shift layout too), and once more shortly after in case anything
+    // async settles a beat later.
+    const onLoad = () => ScrollTrigger.refresh();
+    window.addEventListener('load', onLoad);
+    const settleTimeout = setTimeout(() => ScrollTrigger.refresh(), 500);
+
     return () => {
       lenis.destroy();
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });
+      window.removeEventListener('load', onLoad);
+      clearTimeout(settleTimeout);
     };
   }, []);
 }
