@@ -39,12 +39,12 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="relative bg-ink py-28 lg:py-36">
+    <section id="process" className="relative bg-offwhite py-28 lg:py-36">
       <div className="container-lux">
         <p className="eyebrow mb-5">Notre process</p>
         <h2
           ref={titleRef}
-          className="font-display text-offwhite text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-20"
+          className="font-display text-ink text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-20"
         >
           Une méthode éprouvée, du croquis au chantier
         </h2>
@@ -55,13 +55,13 @@ export default function Process() {
               <span className="process-index font-display text-bronze text-lg md:col-span-1">
                 {step.index}
               </span>
-              <h3 className="process-title font-serif text-offwhite text-3xl md:text-4xl md:col-span-4">
+              <h3 className="process-title font-serif text-ink text-3xl md:text-4xl md:col-span-4">
                 {step.title}
               </h3>
-              <p className="process-desc font-sans text-offwhite/50 leading-relaxed md:col-span-6 md:col-start-7">
+              <p className="process-desc font-sans text-ink/55 leading-relaxed md:col-span-6 md:col-start-7">
                 {step.description}
               </p>
-              <span className="absolute bottom-0 left-0 right-0 h-px bg-offwhite/15" />
+              <span className="absolute bottom-0 left-0 right-0 h-px bg-ink/10" />
               <span className="process-line absolute bottom-0 left-0 h-px w-full bg-bronze origin-left" />
             </div>
           ))}

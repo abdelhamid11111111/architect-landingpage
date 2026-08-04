@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,102 +9,140 @@ import { useTextReveal } from '../hooks/useTextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// how far a card shrinks once the next one covers it. it must stay below 1 and
+// unrotated: the cards are all `inset-0` siblings of identical size, so a
+// centered scale keeps the receding card fully inside the incoming card's
+// bounds. any rotation pushes its corners back out and they show up as hard
+// diagonal slivers above the photo and as a dark bar under the card.
+const RECEDE_SCALE = 0.94;
+
 export default function Projects() {
   const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
-  const stackRef = useRef<HTMLDivElement | null>(null);
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const stack = stackRef.current;
-    if (!stack) return;
+    const sticky = stickyRef.current;
+    if (!sticky) return;
 
-    const cards = gsap.utils.toArray<HTMLElement>('.project-card');
-    const rotations = [-4, 3, -3, 4, -2];
+    const cards = cardRefs.current.filter((el): el is HTMLDivElement => Boolean(el));
+    const total = cards.length;
+    if (total < 2) return;
 
     const ctx = gsap.context(() => {
-      cards.forEach((card, i) => {
-        if (i === 0) return;
+      gsap.set(cards[0], { yPercent: 0, scale: 1, rotate: 0 });
+      gsap.set(cards.slice(1), { yPercent: 100, scale: 1, rotate: 0 });
+      gsap.set(cards, { transformOrigin: '50% 50%' });
 
-        gsap.set(card, { yPercent: 100, rotate: 0 });
-
-        gsap.to(card, {
-          yPercent: 0,
-          rotate: rotations[i % rotations.length],
-          ease: 'none',
-          scrollTrigger: {
-            trigger: stack,
-            start: `top+=${(i - 1) * window.innerHeight * 0.85} top`,
-            end: `top+=${i * window.innerHeight * 0.85} top`,
-            scrub: true,
-          },
-        });
-
-        // previous cards recede slightly as the next one arrives
-        gsap.to(cards[i - 1], {
-          scale: 0.94,
-          filter: 'brightness(0.6)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: stack,
-            start: `top+=${(i - 1) * window.innerHeight * 0.85} top`,
-            end: `top+=${i * window.innerHeight * 0.85} top`,
-            scrub: true,
-          },
-        });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sticky,
+          start: 'top top',
+          // fn form so a ResizeObserver-triggered refresh recomputes it
+          // against the current viewport instead of a stale pinned range
+          end: () => `+=${window.innerHeight * (total - 1)}`,
+          pin: true,
+          scrub: 0.6,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
+        },
       });
-    }, stack);
 
-    return () => ctx.revert();
+      for (let i = 0; i < total - 1; i++) {
+        tl.to(
+          cards[i],
+          { scale: RECEDE_SCALE, duration: 1, ease: 'none' },
+          i
+        ).to(cards[i + 1], { yPercent: 0, duration: 1, ease: 'none' }, i);
+      }
+    }, sticky);
+
+    const resizeObserver = new ResizeObserver(() => ScrollTrigger.refresh());
+    resizeObserver.observe(sticky);
+
+    return () => {
+      resizeObserver.disconnect();
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <section id="projects" className="relative bg-charcoal py-28 lg:py-36">
+    <section id="projects" className="relative bg-offwhite py-28 lg:py-36">
       <div className="container-lux mb-16">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
           <div>
             <p className="eyebrow mb-5">Réalisations</p>
             <h2
               ref={titleRef}
-              className="font-display text-offwhite text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
+              className="font-display text-ink text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
             >
               Un récit architectural, projet après projet
             </h2>
           </div>
-          <p className="font-sans text-offwhite/50 max-w-sm leading-relaxed">
+          <p className="font-sans text-ink/55 max-w-sm leading-relaxed">
             Faites défiler pour parcourir une sélection de nos réalisations les plus
-            singulières, en France et à l'international.
+            singulières, en France et à l&apos;international.
           </p>
         </div>
       </div>
 
-      <div
-        ref={stackRef}
-        className="sticky top-0 h-screen w-full overflow-hidden"
-        style={{ marginBottom: `${(projects.length - 1) * 85}vh` }}
-      >
-        {projects.map((project) => (
+      <div ref={stickyRef} className="relative h-screen w-full overflow-hidden">
+        {projects.map((project, i) => (
           <div
             key={project.id}
-            className="project-card absolute inset-0 flex items-center justify-center px-6"
+            ref={(el) => {
+              cardRefs.current[i] = el;
+            }}
+            className="project-card absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-8"
             style={{ willChange: 'transform' }}
           >
-            <div className="relative w-full max-w-5xl aspect-[16/10] overflow-hidden shadow-2xl">
-              <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+            <div className="flex flex-col w-full max-w-5xl h-[92%] sm:h-[85%] overflow-hidden shadow-[0_18px_50px_-24px_rgba(24,24,24,0.4)] bg-ink">
+              {/* big pic */}
+              <div className="relative flex-[0_0_64%] sm:flex-[0_0_66%] overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover brightness-110 contrast-[1.05] saturate-[0.95]"
+                  loading="eager"
+                />
 
-              <div className="absolute top-6 right-6 glass w-12 h-12 rounded-full flex items-center justify-center">
-                <FiArrowUpRight className="text-offwhite text-lg" />
+                <span className="absolute top-5 left-5 glass px-3 py-1.5 font-sans text-[0.65rem] tracking-[0.2em] uppercase text-offwhite/80">
+                  {String(i + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                </span>
+
+                {/* <a
+                  href="#projects"
+                  aria-label={`Voir le projet ${project.title}`}
+                  className="absolute top-5 right-5 glass w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center hover:bg-bronze/80 transition-colors duration-300"
+                >
+                  <FiArrowUpRight className="text-offwhite text-lg" />
+                </a> */}
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 flex items-end justify-between gap-6">
-                <div>
-                  <p className="eyebrow mb-3 text-sand">{project.category}</p>
-                  <h3 className="font-display text-offwhite text-3xl sm:text-4xl lg:text-5xl">
+              {/* title + small description + link — fully visible, no overlay */}
+              <div className="flex-1 min-h-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-8 px-6 sm:px-10 py-5 sm:py-0 border-t border-offwhite/10">
+                <div className="min-w-0">
+                  <p className="eyebrow mb-2 text-sand">{project.category}</p>
+                  <h3 className="font-display text-offwhite text-2xl sm:text-3xl lg:text-4xl mb-2 truncate">
                     {project.title}
                   </h3>
+                  <p className="font-sans text-offwhite/55 text-sm leading-relaxed line-clamp-2 max-w-md">
+                    {project.description}
+                  </p>
                 </div>
-                <div className="text-right hidden sm:block">
-                  <p className="font-sans text-offwhite/70 text-sm">{project.location}</p>
-                  <p className="font-sans text-offwhite/40 text-sm">{project.year}</p>
+
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 sm:gap-4 shrink-0">
+                  <div className="text-right font-sans text-sm">
+                    <p className="text-offwhite/70">{project.location}</p>
+                    <p className="text-offwhite/40">{project.year}</p>
+                  </div>
+                  <a
+                    href="#projects"
+                    className="flex items-center gap-1.5 whitespace-nowrap font-sans text-[0.7rem] tracking-[0.2em] uppercase text-offwhite underline underline-offset-4 decoration-bronze decoration-1 hover:text-bronze transition-colors duration-300"
+                  >
+                    Voir le projet
+                    <FiArrowUpRight className="text-sm" />
+                  </a>
                 </div>
               </div>
             </div>

@@ -17,6 +17,7 @@ export interface Project {
   location: string;
   year: string;
   category: string;
+  description: string;
   image: string;
 }
 

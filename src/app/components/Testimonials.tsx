@@ -14,7 +14,7 @@ export default function Testimonials() {
   const start = () => {
     controls.start({
       x: '-50%',
-      transition: { duration: 32, ease: 'linear', repeat: Infinity },
+      transition: { duration: 52, ease: 'linear', repeat: Infinity },
     });
   };
 
@@ -27,9 +27,9 @@ export default function Testimonials() {
 
   return (
     <section className="relative bg-sand/25 py-28 lg:py-36 overflow-hidden">
-      <div className="container-lux mb-14">
+      <div className="container-lux mb-20 lg:mb-24">
         <p className="eyebrow mb-5">Témoignages</p>
-        <h2 ref={titleRef} className="font-display text-4xl sm:text-5xl leading-[1.05] max-w-xl">
+        <h2 ref={titleRef} className="font-display text-4xl pb-10 sm:text-5xl leading-[1.05] max-w-xl">
           La confiance de nos clients, notre plus belle signature
         </h2>
       </div>
@@ -42,7 +42,7 @@ export default function Testimonials() {
               className="w-[340px] sm:w-[400px] shrink-0 bg-offwhite p-8 flex flex-col justify-between"
             >
               <PiQuotesFill className="text-3xl text-bronze mb-6" />
-              <p className="font-serif text-xl leading-relaxed text-ink mb-8">"{t.quote}"</p>
+              <p className="font-sans text-base leading-relaxed text-ink mb-8">"{t.quote}"</p>
 
               <div className="flex items-center gap-4">
                 <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />

@@ -52,7 +52,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="relative bg-offwhite pt-40 pb-20 lg:pt-48 lg:pb-24 overflow-hidden">
+    <section id="hero" className="relative bg-offwhite pt-20 pb-20 lg:pt-23 lg:pb-24 overflow-hidden">
       <div className="container-lux">
         {/* utility row */}
         <div className="hero-meta flex items-start justify-between mb-16 lg:mb-24">

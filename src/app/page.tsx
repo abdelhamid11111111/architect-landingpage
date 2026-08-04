@@ -23,7 +23,7 @@ export default function Home() {
       <main>
         <Hero />
         <Services />
-        <ParallaxTransition />
+        {/* <ParallaxTransition /> */}
         <Projects />
         <WhyChooseUs />
         <Process />

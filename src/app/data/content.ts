@@ -46,7 +46,9 @@ export const projects: Project[] = [
     location: 'Cap Ferrat',
     year: '2024',
     category: 'Résidence privée',
-    image: 'https://picsum.photos/seed/villa-solstice/1400/1000',
+    description:
+      "Une villa solaire posée sur la roche, où chaque baie vitrée cadre la Méditerranée.",
+    image: 'https://www.luxclusivehomes.com/wp-content/uploads/2023/02/modern-home-on-the-coast.jpg',
   },
   {
     id: 'p2',
@@ -54,7 +56,9 @@ export const projects: Project[] = [
     location: 'Chamonix',
     year: '2023',
     category: 'Résidence privée',
-    image: 'https://picsum.photos/seed/maison-verre/1400/1000',
+    description:
+      "Une extension de verre et d'acier qui dissout la frontière entre l'atelier et la forêt.",
+    image: 'https://scontent.faga1-2.fna.fbcdn.net/v/t39.30808-6/310426538_468976248586607_9086447621812998419_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x685&ctp=s1280x685&_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=LjSoUEYKrzIQ7kNvwEGeT-d&_nc_oc=AdpJa00iHLzx1kMFDS0WkFIpJWg8kx8wcCFGzRFFAGxpvb08yCuANoqVNjsdamqi58Y&_nc_zt=23&_nc_ht=scontent.faga1-2.fna&_nc_gid=ODU3SxlGXQKYD014PkgjYQ&_nc_ss=7b2a8&oh=00_AQGP1_D8DwT-QCID81ya52NN81EV65encSyoCACYtlDCoA&oe=6A78221E',
   },
   {
     id: 'p3',
@@ -62,7 +66,8 @@ export const projects: Project[] = [
     location: 'Bordeaux',
     year: '2023',
     category: 'Siège social',
-    image: 'https://picsum.photos/seed/monolithe/1400/1000',
+    description: 'Un siège social sculpté dans le béton brut, habité par une lumière zénithale.',
+    image: 'https://agastudio.ma/wp-content/uploads/2023/12/5.jpg',
   },
   {
     id: 'p4',
@@ -70,7 +75,9 @@ export const projects: Project[] = [
     location: 'Aix-en-Provence',
     year: '2022',
     category: 'Résidence privée',
-    image: 'https://picsum.photos/seed/pavillon-ombre/1400/1000',
+    description:
+      'Un pavillon de bois clair, rythmé de brise-soleil qui filtrent la lumière provençale.',
+    image: 'https://story-rabat.com/wp-content/uploads/2025/12/Grand-Theatre-of-Rabat-Morocco-1024x546.webp',
   },
   {
     id: 'p5',
@@ -78,7 +85,9 @@ export const projects: Project[] = [
     location: 'Lyon',
     year: '2022',
     category: 'Espace culturel',
-    image: 'https://picsum.photos/seed/atelier-lumiere/1400/1000',
+    description:
+      'La réhabilitation d\'une friche industrielle en un lieu de création baigné de lumière naturelle.',
+    image: 'https://images.adsttc.com/media/images/67d0/0e99/6fa6/0801/8951/1a07/large_jpg/buildner-reveals-the-winning-projects-of-the-morocco-oasis-retreat-competition_1.jpg?1741688486',
   },
 ];
 
