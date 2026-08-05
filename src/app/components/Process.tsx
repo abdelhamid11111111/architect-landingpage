@@ -39,26 +39,29 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="relative bg-offwhite py-28 lg:py-36">
+    <section id="process" className="relative bg-offwhite section-lux">
       <div className="container-lux">
-        <p className="eyebrow mb-5">Notre process</p>
+        <p className="eyebrow mb-4 sm:mb-5">Notre process</p>
         <h2
           ref={titleRef}
-          className="font-display text-ink text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-20"
+          className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-10 sm:mb-16 lg:mb-20"
         >
           Une méthode éprouvée, du croquis au chantier
         </h2>
 
         <div ref={listRef}>
           {processSteps.map((step) => (
-            <div key={step.id} className="process-row group relative py-10 grid md:grid-cols-12 gap-6 items-start">
-              <span className="process-index font-display text-bronze text-lg md:col-span-1">
+            <div
+              key={step.id}
+              className="process-row group relative py-7 sm:py-10 grid md:grid-cols-12 gap-2 sm:gap-4 md:gap-6 items-start"
+            >
+              <span className="process-index font-display text-bronze text-base sm:text-lg md:col-span-1">
                 {step.index}
               </span>
-              <h3 className="process-title font-display text-ink text-3xl md:text-3xl md:col-span-4">
+              <h3 className="process-title font-display text-ink text-2xl xs:text-3xl md:col-span-4">
                 {step.title}
               </h3>
-              <p className="process-desc font-sans text-ink/55 leading-relaxed md:col-span-6 md:col-start-7">
+              <p className="process-desc font-sans text-sm sm:text-base text-ink/55 leading-relaxed md:col-span-6 md:col-start-7">
                 {step.description}
               </p>
               <span className="absolute bottom-0 left-0 right-0 h-px bg-ink/10" />

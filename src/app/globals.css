@@ -16,6 +16,9 @@
 
   --tracking-widest2: 0.35em;
   --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* small phone (<375px) vs large phone (375-639px) vs tablet (sm, 640px+) */
+  --breakpoint-xs: 23.4375rem;
 }
 
 :root {
@@ -26,6 +29,46 @@
   --offwhite: #faf8f5;
   --ink: #181818;
   --glass: rgba(255, 255, 255, 0.08);
+
+  /* Responsive rhythm tokens. Every section's side gutter and vertical
+     padding derives from these two values, so the whole page rescales from
+     one place instead of each component carrying its own padding ladder.
+     Defaults below target large phones; the media queries that follow
+     re-tune them per breakpoint tier. */
+  --gutter: 1.5rem;
+  --section-y: 4rem;
+}
+
+/* ---------- Breakpoint 1 — small phones (<= 374px) ---------- */
+@media (max-width: 374px) {
+  :root {
+    --gutter: 1.125rem;
+    --section-y: 3.25rem;
+  }
+}
+
+/* ---------- Breakpoint 2 — large phones (375px - 639px) ---------- */
+@media (min-width: 375px) and (max-width: 639px) {
+  :root {
+    --gutter: 1.5rem;
+    --section-y: 4rem;
+  }
+}
+
+/* ---------- Breakpoint 3 — tablets (640px - 1023px) ---------- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  :root {
+    --gutter: 2.5rem;
+    --section-y: 6rem;
+  }
+}
+
+/* ---------- Breakpoint 4 — desktop (1024px+) ---------- */
+@media (min-width: 1024px) {
+  :root {
+    --gutter: clamp(3rem, 5vw, 6rem);
+    --section-y: 9rem;
+  }
 }
 
 * {
@@ -34,6 +77,9 @@
 
 html {
   background: var(--offwhite);
+  /* stops iOS inflating body copy when a phone is rotated to landscape,
+     which is a common cause of "text looks oversized on mobile" */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -67,6 +113,15 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* IMPORTANT: everything below lives in @layer components on purpose.
+   Tailwind declares `@layer theme, base, components, utilities`, and any rule
+   written OUTSIDE a layer beats every layered rule no matter the source order.
+   While these classes were unlayered, `.btn-lux { display: inline-flex }` won
+   against `.hidden { display: none }`, so `hidden md:inline-flex` could not
+   hide the CTA on mobile - and `.eyebrow`'s color beat `text-sand`. Keeping
+   them in the components layer lets utility classes override them normally. */
+@layer components {
 
 /* split-type line masking for reveal animations.
    padding-bottom/negative margin-bottom give descenders (g, y, p, q, j) room
@@ -122,8 +177,8 @@ body {
 
 .eyebrow {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
+  font-size: clamp(0.62rem, 0.55rem + 0.4vw, 0.7rem);
+  letter-spacing: clamp(0.16em, 0.1em + 0.8vw, 0.35em);
   text-transform: uppercase;
   color: var(--bronze);
 }
@@ -132,23 +187,40 @@ body {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding-left: clamp(1.5rem, 5vw, 6rem);
-  padding-right: clamp(1.5rem, 5vw, 6rem);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* shared vertical rhythm for every full-width section */
+.section-lux {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
 .btn-lux {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: clamp(0.68rem, 0.62rem + 0.3vw, 0.75rem);
+  letter-spacing: clamp(0.12em, 0.08em + 0.4vw, 0.2em);
   text-transform: uppercase;
-  padding: 1.1rem 2.2rem;
+  /* min-height guarantees the 44px touch target even as padding shrinks */
+  min-height: 2.75rem;
+  padding: clamp(0.85rem, 0.7rem + 0.8vw, 1.1rem) clamp(1.35rem, 0.9rem + 2.5vw, 2.2rem);
   border: 1px solid var(--ink);
   overflow: hidden;
   transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* on the narrowest phones a bordered CTA reads better edge-to-edge than
+   as a cramped inline chip */
+@media (max-width: 374px) {
+  .btn-lux {
+    width: 100%;
+  }
 }
 
 .btn-lux::before {
@@ -181,3 +253,5 @@ body {
 .btn-lux-light:hover {
   color: var(--ink);
 }
+
+} /* end @layer components */

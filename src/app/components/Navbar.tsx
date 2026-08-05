@@ -16,11 +16,13 @@ export default function Navbar() {
   return (
     <header
       className={`relative top-0 left-0 right-0 z-50 transition-all duration-700 ease-lux ${
-        scrolled ? 'glass py-4 shadow-[0_1px_0_rgba(24,24,24,0.06)]' : 'py-7 bg-transparent'
+        scrolled
+          ? 'glass py-3 sm:py-4 shadow-[0_1px_0_rgba(24,24,24,0.06)]'
+          : 'py-4 sm:py-6 lg:py-7 bg-transparent'
       }`}
     >
-      <nav className="container-lux flex items-center justify-between">
-        <a href="#hero" className="font-display text-xl tracking-wide text-ink">
+      <nav className="container-lux flex items-center justify-between gap-4">
+        <a href="#hero" className="font-display text-lg xs:text-xl tracking-wide text-ink">
           Atelier <span className="italic text-bronze">Verrier</span>
         </a>
 
@@ -59,7 +61,7 @@ export default function Navbar() {
         </a>
 
         <button
-          className="md:hidden flex flex-col gap-1.5 w-8"
+          className="md:hidden flex flex-col gap-1.5 w-8 p-3 -m-3"
           onClick={() => setOpen((o) => !o)}
           aria-label="Ouvrir le menu"
         >
@@ -87,18 +89,32 @@ export default function Navbar() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:hidden overflow-hidden glass"
           >
-            <ul className="container-lux flex flex-col gap-6 py-8">
+            <ul className="container-lux flex flex-col gap-1 py-4">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="font-serif text-2xl text-ink"
+                    /* flex + min-h-11 gives each row a full 44px touch target
+                       without needing the large gap-6 that used to space them */
+                    className="flex min-h-11 items-center font-serif text-xl xs:text-2xl text-ink"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
+
+              {/* the desktop CTA lives outside the nav list, so it is repeated
+                  here to keep it reachable while the mobile menu is open */}
+              <li className="mt-3 pt-4 border-t border-ink/10">
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="btn-lux text-ink w-full"
+                >
+                  Prendre rendez-vous
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

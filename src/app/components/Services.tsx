@@ -137,28 +137,31 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative bg-offwhite py-28 overflow-hidden lg:py-0 lg:h-screen lg:flex lg:items-center"
+      className="relative bg-offwhite py-16 sm:py-24 overflow-hidden lg:py-0 lg:h-screen lg:flex lg:items-center"
     >
       <div className="container-lux w-full">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8 mb-10 sm:mb-14 lg:mb-12">
           <div>
-            <p className="eyebrow mb-5">Nos expertises</p>
+            <p className="eyebrow mb-4 sm:mb-5">Nos expertises</p>
             <h2
               ref={titleRef}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
+              className="font-display text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
             >
               Quatre disciplines, une seule exigence
             </h2>
           </div>
-          <p className="font-sans text-ink/55 max-w-sm leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-ink/55 max-w-sm leading-relaxed">
             De la conception à la livraison, chaque savoir-faire de l&apos;atelier sert une même
             ambition&nbsp;: des lieux justes, durables et habités avec évidence.
           </p>
         </div>
 
         <div ref={trackRef} className="relative">
-          {/* row 1: oversized number marks */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
+          {/* row 1: oversized number marks.
+              Desktop-only: stacked on a phone this rendered all four numbers
+              as one column far above their matching titles in row 3. Below lg
+              the number is instead rendered inline inside each card. */}
+          <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10">
             {services.map((service, i) => {
               const Icon = icons[service.icon];
               return (
@@ -197,15 +200,31 @@ export default function Services() {
           </div>
 
           {/* row 3: titles + descriptions */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 mt-10 lg:mt-0">
-            {services.map((service, i) => (
-              <div key={service.id} data-index={i} className="service-card">
-                <h3 className="font-display text-2xl mb-3 text-ink">{service.title}</h3>
-                <p className="font-sans text-sm leading-relaxed text-ink/70">
-                  {service.description}
-                </p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-8 sm:gap-y-10 mt-0 lg:mt-0">
+            {services.map((service, i) => {
+              const Icon = icons[service.icon];
+              return (
+                <div
+                  key={service.id}
+                  data-index={i}
+                  className="service-card border-t border-ink/10 pt-5 lg:border-0 lg:pt-0"
+                >
+                  {/* mobile/tablet: number + icon sit with their own title */}
+                  <div className="flex items-center justify-between gap-4 mb-2 lg:hidden">
+                    <span className="font-display text-[2.5rem] xs:text-[3rem] leading-none text-ink/15 select-none">
+                      {service.number}
+                    </span>
+                    <Icon className="text-2xl text-bronze/70" />
+                  </div>
+                  <h3 className="font-display text-xl xs:text-2xl mb-2 sm:mb-3 text-ink">
+                    {service.title}
+                  </h3>
+                  <p className="font-sans text-sm leading-relaxed text-ink/70">
+                    {service.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
