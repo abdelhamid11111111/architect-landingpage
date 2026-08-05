@@ -55,7 +55,7 @@ export default function Process() {
               <span className="process-index font-display text-bronze text-lg md:col-span-1">
                 {step.index}
               </span>
-              <h3 className="process-title font-serif text-ink text-3xl md:text-4xl md:col-span-4">
+              <h3 className="process-title font-display text-ink text-3xl md:text-3xl md:col-span-4">
                 {step.title}
               </h3>
               <p className="process-desc font-sans text-ink/55 leading-relaxed md:col-span-6 md:col-start-7">

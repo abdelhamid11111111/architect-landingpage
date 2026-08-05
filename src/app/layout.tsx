@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { marcellus, cormorant, inter } from "./fonts";
 import "./globals.css";
 
@@ -18,7 +19,10 @@ export default function RootLayout({
       lang="fr"
       className={`${marcellus.variable} ${cormorant.variable} ${inter.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
+      </body>
     </html>
   );
 }

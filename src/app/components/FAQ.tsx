@@ -27,7 +27,7 @@ export default function FAQ() {
                   onClick={() => setOpenId(isOpen ? null : item.id)}
                   className="w-full flex items-center justify-between gap-6 py-7 text-left group"
                 >
-                  <span className="font-serif text-xl sm:text-2xl text-ink group-hover:text-bronze transition-colors duration-300">
+                  <span className="font-display text-xl sm:text-2xl text-ink group-hover:text-bronze transition-colors duration-300">
                     {item.question}
                   </span>
                   <motion.span

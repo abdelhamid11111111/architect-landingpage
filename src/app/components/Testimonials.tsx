@@ -1,32 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { motion, useAnimationControls } from 'framer-motion';
-import { PiStarFill, PiQuotesFill } from 'react-icons/pi';
-import { testimonials } from '../data/content';
 import { useTextReveal } from '../hooks/useTextReveal';
 
 export default function Testimonials() {
   const titleRef = useTextReveal<HTMLHeadingElement>({ type: 'lines' });
-  const controls = useAnimationControls();
-  const trackRef = useRef<HTMLDivElement | null>(null);
-
-  const loop = [...testimonials, ...testimonials];
-
-  const start = () => {
-    controls.start({
-      x: '-50%',
-      transition: { duration: 52, ease: 'linear', repeat: Infinity },
-    });
-  };
-
-  const pause = () => controls.stop();
-
-  useEffect(() => {
-    start();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
-    <section className="relative bg-sand/25 py-28 lg:py-36 overflow-hidden">
+    <section className="relative bg-offwhite py-28 lg:py-36 overflow-hidden">
       <div className="container-lux mb-20 lg:mb-24">
         <p className="eyebrow mb-5">Témoignages</p>
         <h2 ref={titleRef} className="font-display text-4xl pb-10 sm:text-5xl leading-[1.05] max-w-xl">
@@ -34,31 +12,11 @@ export default function Testimonials() {
         </h2>
       </div>
 
-      <div className="relative" onMouseEnter={pause} onMouseLeave={start} ref={trackRef}>
-        <motion.div animate={controls} className="flex gap-6 w-max px-6" initial={{ x: '0%' }}>
-          {loop.map((t, i) => (
-            <div
-              key={`${t.id}-${i}`}
-              className="w-[340px] sm:w-[400px] shrink-0 bg-offwhite p-8 flex flex-col justify-between"
-            >
-              <PiQuotesFill className="text-3xl text-bronze mb-6" />
-              <p className="font-sans text-base leading-relaxed text-ink mb-8">"{t.quote}"</p>
-
-              <div className="flex items-center gap-4">
-                <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
-                <div>
-                  <p className="font-sans text-sm text-ink">{t.name}</p>
-                  <p className="font-sans text-xs text-ink/50">{t.role}</p>
-                </div>
-                <div className="ml-auto flex gap-0.5">
-                  {Array.from({ length: t.rating }).map((_, idx) => (
-                    <PiStarFill key={idx} className="text-bronze text-sm" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+      <div className="container-lux">
+        {/* Elfsight Google Reviews widget - live-synced, no API key needed.
+            its own "What Our Customers Say" heading can be turned off in the
+            Elfsight editor's Header tab to avoid duplicating the one above. */}
+        <div className="elfsight-app-a7ad9288-efaf-4ee0-aadd-55938867e3f4" data-elfsight-app-lazy />
       </div>
     </section>
   );
