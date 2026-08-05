@@ -60,23 +60,32 @@ export default function Navbar() {
           Prendre rendez-vous
         </a>
 
+        {/* 44x44 tap target on the button itself, with the bars in an inner
+            24px box. Previously w-8 and p-3 were on the same element, and
+            with border-box sizing the padding ate the width down to 8px, so
+            only a stub of the icon rendered. */}
         <button
-          className="md:hidden flex flex-col gap-1.5 w-8 p-3 -m-3"
+          className="md:hidden flex h-11 w-11 shrink-0 items-center justify-end"
           onClick={() => setOpen((o) => !o)}
-          aria-label="Ouvrir le menu"
+          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={open}
         >
-          <motion.span
-            animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
-            className="h-[1px] w-full bg-ink origin-center"
-          />
-          <motion.span
-            animate={{ opacity: open ? 0 : 1 }}
-            className="h-[1px] w-full bg-ink"
-          />
-          <motion.span
-            animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
-            className="h-[1px] w-full bg-ink origin-center"
-          />
+          <span className="flex w-6 flex-col gap-1.5">
+            {/* bar centres sit 7px apart (1px bar + 6px gap), so the outer
+                bars travel exactly 7px to meet in the middle as an X */}
+            <motion.span
+              animate={{ rotate: open ? 45 : 0, y: open ? 7 : 0 }}
+              className="h-px w-full bg-ink origin-center"
+            />
+            <motion.span
+              animate={{ opacity: open ? 0 : 1 }}
+              className="h-px w-full bg-ink"
+            />
+            <motion.span
+              animate={{ rotate: open ? -45 : 0, y: open ? -7 : 0 }}
+              className="h-px w-full bg-ink origin-center"
+            />
+          </span>
         </button>
       </nav>
 
@@ -87,7 +96,10 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden glass"
+            /* absolute + top-full lifts the panel out of the header's normal
+               flow so it floats over the hero instead of pushing it down.
+               The header already carries z-50, so it stacks above the page. */
+            className="md:hidden absolute top-full left-0 right-0 overflow-hidden bg-offwhite/95 backdrop-blur-xl border-t border-ink/10 shadow-[0_18px_40px_-24px_rgba(24,24,24,0.45)]"
           >
             <ul className="container-lux flex flex-col gap-1 py-4">
               {navLinks.map((link) => (
