@@ -5,7 +5,7 @@ export default function Testimonials() {
 
   return (
     <section className="relative bg-offwhite section-lux overflow-hidden">
-      <div className="container-lux mb-10 sm:mb-16 lg:mb-24">
+      <div className="container-lux mb-10 sm:mb-14 lg:mb-16">
         <p className="eyebrow mb-4 sm:mb-5">Témoignages</p>
         <h2
           ref={titleRef}

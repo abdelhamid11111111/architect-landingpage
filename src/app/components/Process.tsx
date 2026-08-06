@@ -44,7 +44,7 @@ export default function Process() {
         <p className="eyebrow mb-4 sm:mb-5">Notre process</p>
         <h2
           ref={titleRef}
-          className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-10 sm:mb-16 lg:mb-20"
+          className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-10 sm:mb-14 lg:mb-16"
         >
           Une méthode éprouvée, du croquis au chantier
         </h2>

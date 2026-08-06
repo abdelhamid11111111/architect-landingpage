@@ -59,7 +59,7 @@
 @media (min-width: 640px) and (max-width: 1023px) {
   :root {
     --gutter: 2.5rem;
-    --section-y: 6rem;
+    --section-y: 4.5rem;
   }
 }
 
@@ -67,7 +67,12 @@
 @media (min-width: 1024px) {
   :root {
     --gutter: clamp(3rem, 5vw, 6rem);
-    --section-y: 9rem;
+    /* section-y is applied to BOTH the top and bottom of every section, so
+       the visible gap between two neighbours is twice this value. At the old
+       flat 9rem that meant a 288px trench between sections. This fluid ramp
+       lands at 80px on a laptop (160px gap) and only opens up past ~1700px,
+       where the extra width can carry it. */
+    --section-y: clamp(5rem, 2rem + 3vw, 6.5rem);
   }
 }
 

@@ -54,7 +54,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative bg-offwhite pt-8 pb-12 sm:pt-14 sm:pb-16 lg:pt-23 lg:pb-24 overflow-hidden"
+      className="relative bg-offwhite pt-8 pb-12 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20 overflow-hidden"
     >
       <div className="container-lux">
         {/* utility row */}
