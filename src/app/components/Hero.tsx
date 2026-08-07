@@ -85,7 +85,7 @@ export default function Hero() {
               </span>
               <span className="overflow-hidden block">
                 <span className="hero-line block font-serif italic text-bronze">
-                  espaces <span className="text-ink/25 not-italic">——</span> de lumière
+                  espaces <span className="text-ink/25 not-italic">—</span> de lumière
                 </span>
               </span>
             </h1>

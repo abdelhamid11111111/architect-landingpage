@@ -56,7 +56,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a href="#contact" className="hidden md:inline-flex btn-lux text-ink">
+        <a href="#contact" className="hidden md:inline-flex hover:text-white btn-lux text-ink">
           Prendre rendez-vous
         </a>
 
