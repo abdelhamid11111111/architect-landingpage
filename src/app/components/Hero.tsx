@@ -14,7 +14,7 @@ export default function Hero() {
       .from(
         '.hero-line',
         {
-          yPercent: 110,
+          yPercent: 140,
           filter: 'blur(10px)',
           opacity: 0,
           stagger: 0.12,
@@ -80,10 +80,10 @@ export default function Hero() {
         <div className="grid lg:grid-cols-12 gap-x-8 gap-y-8 sm:gap-y-10 items-end mb-10 sm:mb-14 lg:mb-20">
           <div className="lg:col-span-8">
             <h1 className="font-display text-ink leading-[0.92] text-[11vw] xs:text-[9.5vw] sm:text-[7.5vw] lg:text-[5.6vw]">
-              <span className="overflow-hidden block">
+              <span className="overflow-hidden block pb-[0.22em] -mb-[0.08em]">
                 <span className="hero-line block">Shaping spaces</span>
               </span>
-              <span className="overflow-hidden block">
+              <span className="overflow-hidden block pb-[0.22em] -mb-[0.22em]">
                 <span className="hero-line block font-serif italic text-bronze">
                   made of light
                 </span>
