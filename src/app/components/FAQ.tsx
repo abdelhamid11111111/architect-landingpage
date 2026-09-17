@@ -12,12 +12,12 @@ export default function FAQ() {
     <section className="relative bg-offwhite section-lux">
       <div className="container-lux grid lg:grid-cols-12 gap-8 sm:gap-12">
         <div className="lg:col-span-4">
-          <p className="eyebrow mb-4 sm:mb-5">Questions fréquentes</p>
+          <p className="eyebrow mb-4 sm:mb-5">Frequently asked questions</p>
           <h2
             ref={titleRef}
             className="font-display text-3xl xs:text-4xl sm:text-5xl leading-[1.05]"
           >
-            Tout ce qu'il faut savoir avant de commencer
+            Everything you need to know before we begin
           </h2>
         </div>
 

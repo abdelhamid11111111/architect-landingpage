@@ -4,9 +4,9 @@ import { marcellus, cormorant, inter } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Atelier Verrier — Cabinet d'architecture, Paris",
+  title: "Atelier Verrier — Architecture Studio, Paris",
   description:
-    "Atelier Verrier conçoit des architectures sur mesure où matière, lumière et silence composent une expérience sensible du lieu. Paris, depuis 2006.",
+    "Atelier Verrier designs bespoke architecture where material, light and silence compose a sensitive experience of place. Paris, since 2006.",
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="fr"
+      lang="en"
       className={`${marcellus.variable} ${cormorant.variable} ${inter.variable}`}
     >
       <body>

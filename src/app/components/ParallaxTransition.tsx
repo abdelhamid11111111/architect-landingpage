@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // backdrop is the wide establishing shot, featured is the tilted foreground
 // chip - reusing real project data (instead of decorative placeholders) so
-// this break reads as a preview of the Réalisations section right after it.
+// this break reads as a preview of the Selected work section right after it.
 const backdrop = projects[0];
 const featured = projects[1];
 
@@ -148,22 +148,22 @@ export default function ParallaxTransition() {
         <div className="container-lux w-full">
           <div className="grid lg:grid-cols-12 gap-x-8 gap-y-14 items-center">
             <div className="lg:col-span-8">
-              <p className="px-eyebrow eyebrow text-sand mb-6">Philosophie — Atelier Verrier</p>
+              <p className="px-eyebrow eyebrow text-sand mb-6">Philosophy — Atelier Verrier</p>
 
               <h2
                 ref={titleRef}
                 className="font-display italic text-offwhite leading-[1.05] text-[9vw] sm:text-[6vw] lg:text-[3.6vw] max-w-3xl"
               >
-                La lumière révèle la forme,{' '}
-                <span className="text-bronze-light not-italic">la matière</span> raconte le
-                temps.
+                Light reveals the form,{' '}
+                <span className="text-bronze-light not-italic">material</span> tells the
+                time.
               </h2>
 
               <div className="px-rule hairline-bronze w-40 mt-8 mb-6" />
 
               <p className="font-sans text-sm sm:text-base text-offwhite/60 leading-relaxed max-w-md">
-                Chaque projet naît d&apos;un dialogue entre le site, la lumière naturelle et les
-                usages de ceux qui l&apos;habitent — jamais d&apos;un style imposé.
+                Every project is born from a dialogue between the site, natural light and the
+                lives of those who inhabit it — never from an imposed style.
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function ParallaxTransition() {
                     />
                     <a
                       href="#projects"
-                      aria-label={`Voir le projet ${featured.title}`}
+                      aria-label={`View project ${featured.title}`}
                       className="absolute top-3 right-3 w-9 h-9 rounded-full bg-ink/80 backdrop-blur flex items-center justify-center hover:bg-bronze transition-colors duration-300"
                     >
                       <FiArrowUpRight className="text-offwhite text-base" />
@@ -202,7 +202,7 @@ export default function ParallaxTransition() {
 
       {/* scroll cue */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-offwhite/40">
-        <span className="font-sans text-[0.65rem] tracking-[0.3em] uppercase">Continuer</span>
+        <span className="font-sans text-[0.65rem] tracking-[0.3em] uppercase">Continue</span>
         <FiArrowDown className="px-cue-dot text-base" />
       </div>
     </section>

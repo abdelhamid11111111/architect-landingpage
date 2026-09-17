@@ -30,17 +30,17 @@ export default function WhyChooseUs() {
     <section className="relative bg-offwhite section-lux">
       <div className="container-lux grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-8">
         <div className="lg:col-span-5">
-          <p className="eyebrow mb-4 sm:mb-5">Pourquoi Atelier Verrier</p>
+          <p className="eyebrow mb-4 sm:mb-5">Why Atelier Verrier</p>
           <h2
             ref={titleRef}
             className="font-display text-3xl xs:text-4xl sm:text-5xl leading-[1.05] mb-4 sm:mb-6"
           >
-            Une exigence portée depuis près de deux décennies
+            A standard upheld for nearly two decades
           </h2>
           <p className="font-sans text-sm sm:text-base text-ink/55 leading-relaxed max-w-md">
-            Notre atelier réunit architectes, designers d'intérieur et ingénieurs autour
-            d'une même conviction&nbsp;: la rigueur technique ne doit jamais s'opposer à
-            la sensibilité du geste architectural.
+            Our studio brings together architects, interior designers and engineers around
+            a single conviction&nbsp;: technical rigor should never stand in the way of the
+            sensitivity of the architectural gesture.
           </p>
         </div>
 

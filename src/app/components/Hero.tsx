@@ -60,17 +60,17 @@ export default function Hero() {
         {/* utility row */}
         <div className="hero-meta flex items-start justify-between gap-4 mb-4 sm:mb-4 lg:mb-i4">
           <p className="eyebrow max-w-[60%] sm:max-w-none">
-            Cabinet d&apos;architecture 
+            Architecture studio
           </p>
           <a
             href="#projects"
-            aria-label="Découvrir nos projets"
+            aria-label="Discover our projects"
             /* shrink-0 + min-h/min-w keep this a valid 44px target on mobile,
                where the label is hidden and only the icon remains */
             className="group flex shrink-0 min-h-11 min-w-11 items-center justify-end gap-2 text-ink/70 hover:text-bronze transition-colors duration-300"
           >
             <span className="font-sans text-[0.7rem] tracking-[0.2em] uppercase hidden sm:inline">
-              Découvrir nos projets
+              Discover our projects
             </span>
             <FiArrowUpRight className="text-lg sm:text-xl transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
@@ -81,11 +81,11 @@ export default function Hero() {
           <div className="lg:col-span-8">
             <h1 className="font-display text-ink leading-[0.92] text-[11vw] xs:text-[9.5vw] sm:text-[7.5vw] lg:text-[5.6vw]">
               <span className="overflow-hidden block">
-                <span className="hero-line block">Dessiner des</span>
+                <span className="hero-line block">Shaping spaces</span>
               </span>
               <span className="overflow-hidden block">
                 <span className="hero-line block font-serif italic text-bronze">
-                  espaces de lumière
+                  made of light
                 </span>
               </span>
             </h1>
@@ -96,26 +96,26 @@ export default function Hero() {
               href="#contact"
               className="inline-flex min-h-11 items-center font-sans text-[0.7rem] tracking-[0.18em] sm:tracking-[0.25em] uppercase text-ink underline underline-offset-4 decoration-bronze decoration-1 w-fit hover:text-bronze transition-colors duration-300"
             >
-              Démarrer un projet
+              Start a project
             </a>
             <div className="flex items-start gap-4">
               <div className="relative w-16 h-16 xs:w-20 xs:h-20 shrink-0 overflow-hidden">
                 <img
                   src="https://picsum.photos/seed/atelier-thumb/200/200"
-                  alt="Aperçu d'un projet Atelier Verrier"
+                  alt="Preview of an Atelier Verrier project"
                   className="w-full h-full object-cover contrast-[1.05] saturate-[0.95]"
                 />
                 <a
                   href="#projects"
-                  aria-label="Voir tous les projets"
+                  aria-label="View all projects"
                   className="absolute bottom-1.5 right-1.5 w-7 h-7 rounded-full bg-ink flex items-center justify-center after:absolute after:-inset-2.5 after:content-['']"
                 >
                   <FiArrowUpRight className="text-offwhite text-sm" />
                 </a>
               </div>
               <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                Concevoir des lieux intemporels, à faible impact, où la lumière dessine
-                chaque espace.
+                Designing timeless, low-impact places where light draws every space
+                it touches.
               </p>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function Hero() {
           <div className="hero-caption flex items-center justify-between gap-2 mb-3 sm:mb-4 font-sans text-[0.58rem] xs:text-[0.62rem] sm:text-[0.68rem] tracking-[0.1em] sm:tracking-[0.2em] uppercase text-ink/45">
             <span>Villa Solstice</span>
             <span>2024</span>
-            <span>Résidentiel</span>
+            <span>Residential</span>
           </div>
 
           {/* 16:9 leaves the hero image only ~150px tall on a phone; a taller
@@ -136,7 +136,7 @@ export default function Hero() {
           <div className="hero-frame relative aspect-[4/3] sm:aspect-video w-full overflow-hidden">
             <img
               src="https://behnisch.com/img/asset/YXNzZXRzLzE2NTZfUGVubi1WTEVTVC8xNjU2X1Blbm4tVkxFU1RfQmVobmlzY2gtQXJjaGl0ZWt0dXJidWVyb18xMTI2Mi0wMV9Mb1Jlcy5KUEc/1656_Penn-VLEST_Behnisch-Architekturbuero_11262-01_LoRes.JPG?w=2200&fm=&q=&key=996bbe527859119a158433d6ed9b818f"
-              alt="Villa contemporaine signée Atelier Verrier"
+              alt="Contemporary villa by Atelier Verrier"
               className="w-full h-full object-cover contrast-[1.05] saturate-[0.95]"
               loading="eager"
             />
@@ -152,13 +152,13 @@ export default function Hero() {
               href="#projects"
               className="inline-flex min-h-11 items-center hover:text-bronze transition-colors duration-300"
             >
-              Projet suivant
+              Next project
             </a>
             <a
               href="#projects"
               className="inline-flex min-h-11 items-center hover:text-bronze transition-colors duration-300"
             >
-              Voir le projet
+              View project
             </a>
           </div>
         </div>

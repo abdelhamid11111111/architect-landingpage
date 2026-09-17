@@ -71,17 +71,17 @@ export default function Projects() {
       <div className="container-lux mb-10 sm:mb-16">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8">
           <div>
-            <p className="eyebrow mb-4 sm:mb-5">Réalisations</p>
+            <p className="eyebrow mb-4 sm:mb-5">Selected work</p>
             <h2
               ref={titleRef}
               className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
             >
-              Un récit architectural, projet après projet
+              An architectural story, project after project
             </h2>
           </div>
           <p className="font-sans text-sm sm:text-base text-ink/55 max-w-sm leading-relaxed">
-            Faites défiler pour parcourir une sélection de nos réalisations les plus
-            singulières, en France et à l&apos;international.
+            Scroll through a selection of our most singular projects, built in France
+            and abroad.
           </p>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function Projects() {
 
                 {/* <a
                   href="#projects"
-                  aria-label={`Voir le projet ${project.title}`}
+                  aria-label={`View project ${project.title}`}
                   className="absolute top-5 right-5 glass w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center hover:bg-bronze/80 transition-colors duration-300"
                 >
                   <FiArrowUpRight className="text-offwhite text-lg" />
@@ -143,7 +143,7 @@ export default function Projects() {
                     href="#projects"
                     className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap font-sans text-[0.65rem] sm:text-[0.7rem] tracking-[0.15em] sm:tracking-[0.2em] uppercase text-offwhite underline underline-offset-4 decoration-bronze decoration-1 hover:text-bronze transition-colors duration-300"
                   >
-                    Voir le projet
+                    View project
                     <FiArrowUpRight className="text-sm" />
                   </a>
                 </div>

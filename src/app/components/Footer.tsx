@@ -11,7 +11,7 @@ export default function Footer() {
               Atelier <span className="italic text-bronze">Verrier</span>
             </p>
             <p className="font-sans text-sm text-offwhite/40 leading-relaxed max-w-[220px]">
-              Cabinet d'architecture et de design d'intérieur basé à Paris, depuis 2006.
+              Architecture and interior design studio based in Paris, since 2006.
             </p>
           </div>
 
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-offwhite/40 mb-5">Suivez-nous</p>
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-offwhite/40 mb-5">Follow us</p>
             <div className="flex gap-4">
               <a href="#" aria-label="Instagram" className="w-11 h-11 rounded-full border border-offwhite/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors text-offwhite/70">
                 <PiInstagramLogoLight className="text-lg" />
@@ -73,8 +73,8 @@ export default function Footer() {
         <div className="hairline mb-8" style={{ background: 'rgba(250,248,245,0.12)' }} />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-sans text-xs text-offwhite/35">© 2026 Atelier Verrier. Tous droits réservés.</p>
-          <p className="font-sans text-xs text-offwhite/35">Mentions légales — Politique de confidentialité</p>
+          <p className="font-sans text-xs text-offwhite/35">© 2026 Atelier Verrier. All rights reserved.</p>
+          <p className="font-sans text-xs text-offwhite/35">Legal notice — Privacy policy</p>
         </div>
       </div>
     </footer>

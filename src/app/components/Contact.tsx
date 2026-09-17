@@ -23,7 +23,7 @@ export default function Contact() {
             ref={titleRef}
             className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05]"
           >
-            Racontons ensemble votre prochain projet
+            Let&apos;s tell the story of your next project
           </h2>
         </div>
 
@@ -33,14 +33,14 @@ export default function Contact() {
               <div className="flex items-start gap-4">
                 <PiMapPinLight className="text-2xl text-bronze shrink-0 mt-1" />
                 <div>
-                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Atelier</p>
+                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Studio</p>
                   <p className="font-sans text-sm sm:text-base text-ink">14 rue des Beaux-Arts, 75006 Paris</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <PiPhoneLight className="text-2xl text-bronze shrink-0 mt-1" />
                 <div>
-                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Téléphone</p>
+                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Phone</p>
                   <a
                     href="tel:+33142860715"
                     className="inline-flex min-h-11 items-center font-sans text-sm sm:text-base text-ink hover:text-bronze transition-colors"
@@ -52,7 +52,7 @@ export default function Contact() {
               <div className="flex items-start gap-4">
                 <PiEnvelopeLight className="text-2xl text-bronze shrink-0 mt-1" />
                 <div>
-                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Courriel</p>
+                  <p className="font-sans text-ink/40 text-xs tracking-[0.2em] uppercase mb-1">Email</p>
                   <a
                     href="mailto:contact@atelier-verrier.fr"
                     className="inline-flex min-h-11 items-center break-all font-sans text-sm sm:text-base text-ink hover:text-bronze transition-colors"
@@ -66,7 +66,7 @@ export default function Contact() {
 
             <div className="relative aspect-[4/3] sm:aspect-square w-full max-w-sm overflow-hidden">
               <iframe
-                title="Localisation de l'atelier à Paris"
+                title="Location of the studio in Paris"
                 src="https://www.google.com/maps?q=Rue+des+Beaux-Arts,+Paris&output=embed"
                 className="w-full h-full grayscale-[40%] contrast-[1.1]"
                 style={{ border: 0 }}
@@ -84,31 +84,31 @@ export default function Contact() {
             >
               <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
                 <label className="flex flex-col gap-2">
-                  <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Nom</span>
+                  <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Name</span>
                   <input
                     required
                     type="text"
                     className="bg-transparent border-b border-ink/20 py-3 min-h-11 text-ink font-serif text-lg placeholder:font-sans placeholder:text-base focus:outline-none focus:border-bronze transition-colors"
-                    placeholder="Votre nom"
+                    placeholder="Your name"
                   />
                 </label>
                 <label className="flex flex-col gap-2">
-                  <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Courriel</span>
+                  <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Email</span>
                   <input
                     required
                     type="email"
                     className="bg-transparent border-b border-ink/20 py-3 min-h-11 text-ink font-serif text-lg placeholder:font-sans placeholder:text-base focus:outline-none focus:border-bronze transition-colors"
-                    placeholder="vous@exemple.fr"
+                    placeholder="you@example.com"
                   />
                 </label>
               </div>
 
               <label className="flex flex-col gap-2">
-                <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Nature du projet</span>
+                <span className="font-sans text-xs tracking-[0.15em] uppercase text-ink/50">Project type</span>
                 <input
                   type="text"
                   className="bg-transparent border-b border-ink/20 py-3 min-h-11 text-ink font-serif text-lg placeholder:font-sans placeholder:text-base focus:outline-none focus:border-bronze transition-colors"
-                  placeholder="Construction, rénovation, intérieur…"
+                  placeholder="New build, renovation, interiors…"
                 />
               </label>
 
@@ -117,12 +117,12 @@ export default function Contact() {
                 <textarea
                   rows={4}
                   className="bg-transparent border-b border-ink/20 py-3 min-h-11 text-ink font-serif text-lg placeholder:font-sans placeholder:text-base focus:outline-none focus:border-bronze transition-colors resize-none"
-                  placeholder="Décrivez-nous votre projet…"
+                  placeholder="Tell us about your project…"
                 />
               </label>
 
               <button type="submit" className="btn-lux text-ink w-full sm:w-auto sm:self-start mt-2">
-                {sent ? 'Message envoyé' : 'Envoyer la demande'}
+                {sent ? 'Message sent' : 'Send request'}
               </button>
             </form>
           </div>

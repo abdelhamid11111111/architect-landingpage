@@ -142,17 +142,17 @@ export default function Services() {
       <div className="container-lux w-full">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8 mb-10 sm:mb-14 lg:mb-12">
           <div>
-            <p className="eyebrow mb-4 sm:mb-5">Nos expertises</p>
+            <p className="eyebrow mb-4 sm:mb-5">Our expertise</p>
             <h2
               ref={titleRef}
               className="font-display text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-xl"
             >
-              Quatre disciplines, une seule exigence
+              Four disciplines, one standard
             </h2>
           </div>
           <p className="font-sans text-sm sm:text-base text-ink/55 max-w-sm leading-relaxed">
-            De la conception à la livraison, chaque savoir-faire de l&apos;atelier sert une même
-            ambition&nbsp;: des lieux justes, durables et habités avec évidence.
+            From design to handover, every craft in the studio serves the same ambition&nbsp;:
+            places that are right, that last and that feel effortless to live in.
           </p>
         </div>
 

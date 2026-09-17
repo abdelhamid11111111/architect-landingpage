@@ -41,12 +41,12 @@ export default function Process() {
   return (
     <section id="process" className="relative bg-offwhite section-lux">
       <div className="container-lux">
-        <p className="eyebrow mb-4 sm:mb-5">Notre process</p>
+        <p className="eyebrow mb-4 sm:mb-5">Our process</p>
         <h2
           ref={titleRef}
           className="font-display text-ink text-3xl xs:text-4xl sm:text-5xl lg:text-6xl leading-[1.05] max-w-2xl mb-10 sm:mb-14 lg:mb-16"
         >
-          Une méthode éprouvée, du croquis au chantier
+          A proven method, from sketch to site
         </h2>
 
         <div ref={listRef}>

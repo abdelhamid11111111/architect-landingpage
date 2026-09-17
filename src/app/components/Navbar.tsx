@@ -57,7 +57,7 @@ export default function Navbar() {
         </ul>
 
         <a href="#contact" className="hidden md:inline-flex hover:text-white btn-lux text-ink">
-          Prendre rendez-vous
+          Book a consultation
         </a>
 
         {/* 44x44 tap target on the button itself, with the bars in an inner
@@ -67,7 +67,7 @@ export default function Navbar() {
         <button
           className="md:hidden flex h-11 w-11 shrink-0 items-center justify-end"
           onClick={() => setOpen((o) => !o)}
-          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
         >
           <span className="flex w-6 flex-col gap-1.5">
@@ -124,7 +124,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="btn-lux text-ink w-full"
                 >
-                  Prendre rendez-vous
+                  Book a consultation
                 </a>
               </li>
             </ul>

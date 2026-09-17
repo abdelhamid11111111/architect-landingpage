@@ -6,12 +6,12 @@ export default function Testimonials() {
   return (
     <section className="relative bg-offwhite section-lux overflow-hidden">
       <div className="container-lux mb-10 sm:mb-14 lg:mb-16">
-        <p className="eyebrow mb-4 sm:mb-5">Témoignages</p>
+        <p className="eyebrow mb-4 sm:mb-5">Testimonials</p>
         <h2
           ref={titleRef}
           className="font-display text-3xl xs:text-4xl sm:text-5xl leading-[1.05] max-w-xl"
         >
-          La confiance de nos clients, notre plus belle signature
+          Our clients&apos; trust is our finest signature
         </h2>
       </div>
 
